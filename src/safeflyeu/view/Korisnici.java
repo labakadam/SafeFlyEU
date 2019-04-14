@@ -5,9 +5,6 @@
  */
 package safeflyeu.view;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
@@ -42,14 +39,6 @@ public class Korisnici extends javax.swing.JFrame {
             os.addElement(s);
         });
         cmbOsiguranja.setModel(os);
-    }
-
-    private void ucitajPodatke() {
-        DefaultListModel<Korisnik> m = new DefaultListModel<>();
-        obradaEntitet.getLista().forEach((o) -> {
-            m.addElement(o);
-        });
-        lstEntiteti.setModel(m);
     }
 
     /**
@@ -102,7 +91,7 @@ public class Korisnici extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(lstEntiteti);
 
-        jButton1.setText("X");
+        jButton1.setText("Exit");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -151,7 +140,7 @@ public class Korisnici extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -217,10 +206,11 @@ public class Korisnici extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1)))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDodaj)
-                    .addComponent(btnPromjena)
-                    .addComponent(btnBrisanje))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnBrisanje)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnDodaj)
+                        .addComponent(btnPromjena)))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
 
@@ -234,24 +224,21 @@ public class Korisnici extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajActionPerformed
-        Korisnik k = new Korisnik();
-        k.setIme(txtIme.getText());
-        k.setPrezime(txtPrezime.getText());
-        k.setEmail(txtEmail.getText());
-        try {
-            k.setOib((txtOib.getText()));
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showConfirmDialog(null, "Oib nije broj");
-        }
+        Korisnik entitet = new Korisnik();
+
+        preuzmiVrijednosti(entitet);
 
         try {
-            obradaEntitet.save(k);
-            ocistiPolja();
-            ucitajPodatke();
+            obradaEntitet.save(entitet);
         } catch (SafeFlyEUException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            JOptionPane.showConfirmDialog(null, e.getMessage());
+            return;
         }
+
+        ucitajEntitete();
+
+        ocistiPolja();
+
 
     }//GEN-LAST:event_btnDodajActionPerformed
 
@@ -283,11 +270,12 @@ public class Korisnici extends javax.swing.JFrame {
         if (entitet == null) {
             JOptionPane.showConfirmDialog(null, "Prvo odaberite korisnika");
         }
+
         try {
             obradaEntitet.obrisi(entitet);
-            ucitajPodatke();
+            ucitajEntitete();
             ocistiPolja();
-        } catch (SafeFlyEUException e) {
+        } catch (SafeFlyEUException ex) {
             JOptionPane.showMessageDialog(null, "Ne mogu obrisati");
         }
 
@@ -298,19 +286,24 @@ public class Korisnici extends javax.swing.JFrame {
             return;
         }
 
-        ocistiPolja();
+        Korisnik entitet = lstEntiteti.getSelectedValue();
 
-        Korisnik k = lstEntiteti.getSelectedValue();
-
-        if (k == null) {
+        if (entitet == null) {
             return;
         }
+        ocistiPolja();
 
-        txtIme.setText(k.getIme());
-
+        txtIme.setText(entitet.getIme());
+        txtPrezime.setText(entitet.getPrezime());
+        txtEmail.setText(entitet.getEmail());
+        try {
+            txtOib.setText((entitet.getOib()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         modelOsiguranje = (DefaultComboBoxModel<Osiguranje>) cmbOsiguranja.getModel();
         for (int i = 0; i < modelOsiguranje.getSize(); i++) {
-            if (modelOsiguranje.getElementAt(i).getId() == k.getOsiguranje().getId()) {
+            if (modelOsiguranje.getElementAt(i).getId() == entitet.getOsiguranje().getId()) {
                 cmbOsiguranja.setSelectedIndex(i);
                 break;
             }
@@ -359,7 +352,11 @@ public class Korisnici extends javax.swing.JFrame {
     }
 
     private void preuzmiVrijednosti(Korisnik entitet) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        entitet.setIme(txtIme.getText());
+        entitet.setPrezime(txtPrezime.getText());
+        entitet.setEmail(txtEmail.getText());
+        entitet.setOib(txtOib.getText());
+        entitet.setOsiguranje((Osiguranje) cmbOsiguranja.getSelectedItem());
     }
 
     private void ucitajEntitete() {

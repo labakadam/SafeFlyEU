@@ -17,4 +17,8 @@ public abstract class Obrada<T> {
         dao = new DAO<>();
     }
 
+    void kontrola() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

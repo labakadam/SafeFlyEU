@@ -155,7 +155,7 @@ public class Izbornik extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu7ActionPerformed
 
     private void jMenu8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu8ActionPerformed
-        // TODO add your handling code here:
+        new Zaposlenici().setVisible(true);
     }//GEN-LAST:event_jMenu8ActionPerformed
 
     private void jMenu9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu9ActionPerformed
@@ -183,7 +183,7 @@ public class Izbornik extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu9MouseClicked
 
     private void jMenu8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu8MouseClicked
-       // new Zaposlenici().setVisible(true);
+       new Zaposlenici().setVisible(true);
     }//GEN-LAST:event_jMenu8MouseClicked
 
     private void btnZatvoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnZatvoriActionPerformed

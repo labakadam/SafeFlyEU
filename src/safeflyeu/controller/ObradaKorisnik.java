@@ -20,6 +20,10 @@ import org.hibernate.Query;
  */
 public class ObradaKorisnik extends Obrada<Korisnik> implements ObradaSucelje<Korisnik> {
 
+    public ObradaKorisnik() {
+        super();
+    }
+
     public List<Korisnik> getLista() {
         return HibernateUtil.getSession().createQuery("from Korisnik").list();
     }
@@ -37,16 +41,17 @@ public class ObradaKorisnik extends Obrada<Korisnik> implements ObradaSucelje<Ko
     }
 
     public Korisnik save(Korisnik k) throws SafeFlyEUException {
+
         kontrola(k);
-        return save(k);
+        return dao.save(k);
 
     }
 
     public void obrisi(Korisnik k) throws SafeFlyEUException {
-        if (k.getIme().length() > 0) {
-            return;
-        }
+        if (k.getOsiguranje().size() > 0) {
 
+        }
+        dao.delete(k);
     }
 
     /**
@@ -62,9 +67,9 @@ public class ObradaKorisnik extends Obrada<Korisnik> implements ObradaSucelje<Ko
             throw new SafeFlyEUException("Ime je obavezno");
         }
         if (k.getPrezime() == null) {
-        } else {
             throw new SafeFlyEUException("Prezime nije definirano");
         }
+
         if (k.getPrezime().trim().isEmpty()) {
             throw new SafeFlyEUException("Prezime je obavezno");
         }

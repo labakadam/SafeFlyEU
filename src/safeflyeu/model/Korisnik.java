@@ -6,8 +6,12 @@
 package safeflyeu.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -68,7 +72,7 @@ public class Korisnik extends Entitet implements Serializable {
 
     @Override
     public String toString() {
-        return ime +  " " + prezime;
+        return ime + " " + prezime;
     }
 
 }

@@ -6,7 +6,10 @@
 package safeflyeu.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -58,7 +61,5 @@ public class Osiguranje extends Entitet implements Serializable {
     public String toString() {
         return naziv;
     }
-
-    
 
 }
