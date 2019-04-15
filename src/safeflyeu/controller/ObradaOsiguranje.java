@@ -25,7 +25,7 @@ public class ObradaOsiguranje extends Obrada<Osiguranje> {
         return HibernateUtil.getSession().createQuery("from Osiguranje").list();
     }
 
-    public Osiguranje spremi(Osiguranje o) throws SafeFlyEUException {
+    public Osiguranje save(Osiguranje o) throws SafeFlyEUException {
 
         kontrola(o);
 

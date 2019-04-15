@@ -39,18 +39,19 @@ public class ObradaKorisnik extends Obrada<Korisnik> implements ObradaSucelje<Ko
 
         return query.list();
     }
-
     public Korisnik save(Korisnik k) throws SafeFlyEUException {
 
         kontrola(k);
+
         return dao.save(k);
 
     }
 
+    @Override
     public void obrisi(Korisnik k) throws SafeFlyEUException {
-        if (k.getOsiguranje().size() > 0) {
-
-        }
+        
+        kontrola(k);
+        
         dao.delete(k);
     }
 
@@ -59,6 +60,7 @@ public class ObradaKorisnik extends Obrada<Korisnik> implements ObradaSucelje<Ko
      * @param k
      * @throws SafeFlyEUException
      */
+    @Override
     public void kontrola(Korisnik k) throws SafeFlyEUException {
         if (k.getIme() == null) {
             throw new SafeFlyEUException("Ime nije definirano");

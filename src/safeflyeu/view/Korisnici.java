@@ -39,6 +39,8 @@ public class Korisnici extends javax.swing.JFrame {
             os.addElement(s);
         });
         cmbOsiguranja.setModel(os);
+        
+        ucitajPodatke();
     }
 
     /**
@@ -224,18 +226,18 @@ public class Korisnici extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajActionPerformed
-        Korisnik entitet = new Korisnik();
+        Korisnik k = new Korisnik();
 
-        preuzmiVrijednosti(entitet);
+        preuzmiVrijednosti(k);
 
         try {
-            obradaEntitet.save(entitet);
+            obradaEntitet.save(k);
         } catch (SafeFlyEUException e) {
             JOptionPane.showConfirmDialog(null, e.getMessage());
             return;
         }
 
-        ucitajEntitete();
+        ucitajPodatke();
 
         ocistiPolja();
 
@@ -243,37 +245,37 @@ public class Korisnici extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDodajActionPerformed
 
     private void btnPromjenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromjenaActionPerformed
-        Korisnik entitet = lstEntiteti.getSelectedValue();
+        Korisnik k = lstEntiteti.getSelectedValue();
 
-        if (entitet == null) {
+        if (k == null) {
             JOptionPane.showConfirmDialog(null, "Prvo odaberite korisnika");
         }
 
-        preuzmiVrijednosti(entitet);
+        preuzmiVrijednosti(k);
 
         try {
-            obradaEntitet.save(entitet);
+            obradaEntitet.save(k);
         } catch (SafeFlyEUException e) {
             JOptionPane.showConfirmDialog(null, e.getMessage());
             return;
         }
 
-        ucitajEntitete();
+        ucitajPodatke();
 
         ocistiPolja();
 
     }//GEN-LAST:event_btnPromjenaActionPerformed
 
     private void btnBrisanjeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrisanjeActionPerformed
-        Korisnik entitet = lstEntiteti.getSelectedValue();
+        Korisnik k = lstEntiteti.getSelectedValue();
 
-        if (entitet == null) {
+        if (k == null) {
             JOptionPane.showConfirmDialog(null, "Prvo odaberite korisnika");
         }
 
         try {
-            obradaEntitet.obrisi(entitet);
-            ucitajEntitete();
+            obradaEntitet.obrisi(k);
+            ucitajPodatke();
             ocistiPolja();
         } catch (SafeFlyEUException ex) {
             JOptionPane.showMessageDialog(null, "Ne mogu obrisati");
@@ -286,24 +288,24 @@ public class Korisnici extends javax.swing.JFrame {
             return;
         }
 
-        Korisnik entitet = lstEntiteti.getSelectedValue();
+        Korisnik k = lstEntiteti.getSelectedValue();
 
-        if (entitet == null) {
+        if (k == null) {
             return;
         }
         ocistiPolja();
 
-        txtIme.setText(entitet.getIme());
-        txtPrezime.setText(entitet.getPrezime());
-        txtEmail.setText(entitet.getEmail());
+        txtIme.setText(k.getIme());
+        txtPrezime.setText(k.getPrezime());
+        txtEmail.setText(k.getEmail());
         try {
-            txtOib.setText((entitet.getOib()));
+            txtOib.setText((k.getOib()));
         } catch (Exception e) {
             e.printStackTrace();
         }
         modelOsiguranje = (DefaultComboBoxModel<Osiguranje>) cmbOsiguranja.getModel();
         for (int i = 0; i < modelOsiguranje.getSize(); i++) {
-            if (modelOsiguranje.getElementAt(i).getId() == entitet.getOsiguranje().getId()) {
+            if (modelOsiguranje.getElementAt(i).getId() == k.getOsiguranje().getId()) {
                 cmbOsiguranja.setSelectedIndex(i);
                 break;
             }
@@ -313,7 +315,7 @@ public class Korisnici extends javax.swing.JFrame {
 
     private void txtUvjetKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUvjetKeyReleased
         //if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-        ucitajEntitete();
+        ucitajPodatke();
         // }
     }//GEN-LAST:event_txtUvjetKeyReleased
 
@@ -351,43 +353,39 @@ public class Korisnici extends javax.swing.JFrame {
         cmbOsiguranja.setSelectedIndex(0);
     }
 
-    private void preuzmiVrijednosti(Korisnik entitet) {
-        entitet.setIme(txtIme.getText());
-        entitet.setPrezime(txtPrezime.getText());
-        entitet.setEmail(txtEmail.getText());
-        entitet.setOib(txtOib.getText());
-        entitet.setOsiguranje((Osiguranje) cmbOsiguranja.getSelectedItem());
+    private void preuzmiVrijednosti(Korisnik k) {
+        k.setIme(txtIme.getText());
+        k.setPrezime(txtPrezime.getText());
+        k.setEmail(txtEmail.getText());
+        try {
+            txtOib.setText((k.getOib()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        k.setOsiguranje((Osiguranje) cmbOsiguranja.getSelectedItem());
     }
 
-    private void ucitajEntitete() {
-        if (chbLimitator.isSelected()) {
-            DefaultListModel<Korisnik> m = new DefaultListModel<>();
-            for (Korisnik s : obradaEntitet.getLista(txtUvjet.getText().trim(), chbLimitator.isSelected())) {
-                m.addElement(s);
-            }
-            lstEntiteti.setModel(m);
-        } else {
-            DefaultListModel<Korisnik> m = new DefaultListModel<>();
-            Korisnik k = new Korisnik();
-            k.setIme("Molim");
-            k.setPrezime("pričekati");
+    private void ucitajPodatke() {
+
+        DefaultListModel<Korisnik> m = new DefaultListModel<>();
+        for (Korisnik k : obradaEntitet.getLista()) {
             m.addElement(k);
-            lstEntiteti.setModel(m);
-            DuzeUcitanjeEntiteta d = new DuzeUcitanjeEntiteta();
-            d.start();
         }
+        lstEntiteti.setModel(m);
+
     }
 
-    private class DuzeUcitanjeEntiteta extends Thread {
 
-        @Override
-        public void run() {
-            DefaultListModel<Korisnik> m = new DefaultListModel<>();
-            for (Korisnik k : obradaEntitet.getLista(txtUvjet.getText().trim(), chbLimitator.isSelected())) {
-                m.addElement(k);
-            }
-            lstEntiteti.setModel(m);
-        }
-
-    }
+//    private class DuzeUcitanjeEntiteta extends Thread {
+//
+//        @Override
+//        public void run() {
+//            DefaultListModel<Korisnik> m = new DefaultListModel<>();
+//            for (Korisnik k : obradaEntitet.getLista(txtUvjet.getText().trim(), chbLimitator.isSelected())) {
+//                m.addElement(k);
+//            }
+//            lstEntiteti.setModel(m);
+//        }
+//
+//    }
 }

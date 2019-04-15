@@ -40,18 +40,10 @@ public class Zaposlenici extends javax.swing.JFrame {
             akm.addElement(s);
         });
         cmbAvioKompanije.setModel(akm);
+        ucitajPodatke();
     }
 
-    private void ucitajPodatke() {
-        
-        
-        DefaultListModel<Zaposlenik> m = new DefaultListModel<>();
-        obradaEntitet.getLista().forEach((z) -> {
-            m.addElement(z);
-        });
-        lstEntiteti.setModel(m);
     
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -250,17 +242,8 @@ public class Zaposlenici extends javax.swing.JFrame {
 
     private void btnDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajActionPerformed
         Zaposlenik z = new Zaposlenik();
-        z.setIme(txtIme.getText());
-        z.setPrezime(txtPrezime.getText());
-        z.setEmail(txtEmail.getText());
-        z.setBrojMobitela(txtBrojMobitela.getText());
-        z.setBrojUgovora(txtBrojUgovora.getText());
-        try {
-            z.setOib((txtOib.getText()));
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showConfirmDialog(null, "Oib nije broj");
-        }
+        
+        preuzmiVrijednosti(z);
 
         try {
             obradaEntitet.save(z);
@@ -269,6 +252,8 @@ public class Zaposlenici extends javax.swing.JFrame {
         } catch (SafeFlyEUException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
+        ucitajPodatke();
+        ocistiPolja();
     }//GEN-LAST:event_btnDodajActionPerformed
 
     private void btnPromjenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromjenaActionPerformed
@@ -287,7 +272,7 @@ public class Zaposlenici extends javax.swing.JFrame {
             return;
         }
 
-        ucitajEntitete();
+        ucitajPodatke();
 
         ocistiPolja();
     }//GEN-LAST:event_btnPromjenaActionPerformed
@@ -312,15 +297,26 @@ public class Zaposlenici extends javax.swing.JFrame {
             return;
         }
 
-        ocistiPolja();
+        
 
         Zaposlenik z = lstEntiteti.getSelectedValue();
 
         if (z == null) {
             return;
         }
+        ocistiPolja();
 
         txtIme.setText(z.getIme());
+        txtPrezime.setText(z.getPrezime());
+        txtEmail.setText(z.getEmail());
+        txtBrojMobitela.setText(z.getBrojMobitela());
+        txtBrojMobitela.setText(z.getBrojMobitela());
+        try {
+            txtOib.setText((z.getOib()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
 
         modelAvioKompanija = (DefaultComboBoxModel<AvioKompanija>) cmbAvioKompanije.getModel();
         for (int i = 0; i < modelAvioKompanija.getSize(); i++) {
@@ -337,7 +333,7 @@ public class Zaposlenici extends javax.swing.JFrame {
 
     private void txtUvjetKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUvjetKeyReleased
         //if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            ucitajEntitete();
+            ucitajPodatke();
             // }
     }//GEN-LAST:event_txtUvjetKeyReleased
 
@@ -374,16 +370,35 @@ public class Zaposlenici extends javax.swing.JFrame {
         txtPrezime.setText("");
         txtEmail.setText("");
         txtOib.setText("");
+        txtBrojUgovora.setText("");
+        txtBrojMobitela.setText("");
         
         cmbAvioKompanije.setSelectedIndex(0);
     
     }
 
     private void preuzmiVrijednosti(Zaposlenik z) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        z.setIme(txtIme.getText());
+        z.setPrezime(txtPrezime.getText());
+        z.setEmail(txtEmail.getText());
+        try {
+            z.setOib(txtOib.getText());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        z.setBrojMobitela(txtBrojUgovora.getText());
+        z.setBrojUgovora(txtBrojUgovora.getText());
     }
 
-    private void ucitajEntitete() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    private void ucitajPodatke() {
+        
+        
+        DefaultListModel<Zaposlenik> m = new DefaultListModel<>();
+        obradaEntitet.getLista().forEach((z) -> {
+            m.addElement(z);
+        });
+        lstEntiteti.setModel(m);
+    
     }
 }

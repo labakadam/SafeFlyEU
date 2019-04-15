@@ -6,6 +6,8 @@
 package safeflyeu.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -25,11 +27,22 @@ public class AvioKompanija extends Entitet implements Serializable {
     @ManyToOne
     private Osiguranje osiguranje;
 
+    @ManyToMany
+    private List<Korisnik> korisnici = new ArrayList<>();
+
     private String naziv;
     private String let;
     private String avion;
     private String oib;
     private String iban;
+
+    public List<Korisnik> getKorisnici() {
+        return korisnici;
+    }
+
+    public void setKorisnici(List<Korisnik> korisnici) {
+        this.korisnici = korisnici;
+    }
 
     public Osiguranje getOsiguranje() {
         return osiguranje;

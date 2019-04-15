@@ -22,7 +22,6 @@ import javax.persistence.Table;
 @Table
 public class Korisnik extends Entitet implements Serializable {
 
-    @ManyToOne
     private Osiguranje osiguranje;
 
     private String ime;

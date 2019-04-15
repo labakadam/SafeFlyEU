@@ -22,10 +22,12 @@ public class ObradaAvioKompanija extends Obrada<AvioKompanija> implements Obrada
         super();
     }
 
+    @Override
     public List<AvioKompanija> getLista() {
         return HibernateUtil.getSession().createQuery("from AvioKompanija").list();
     }
 
+    @Override
     public AvioKompanija save(AvioKompanija ak) throws SafeFlyEUException {
 
         kontrola(ak);
@@ -33,11 +35,15 @@ public class ObradaAvioKompanija extends Obrada<AvioKompanija> implements Obrada
         return dao.save(ak);
     }
 
+    @Override
     public void obrisi(AvioKompanija ak) throws SafeFlyEUException {
-
+        if (ak.getKorisnici().size() > 0) {
+            throw new SafeFlyEUException("Ne možete brisati, avio kompanija ima korisnike");
+        }
         dao.delete(ak);
     }
 
+    @Override
     public void kontrola(AvioKompanija ak) throws SafeFlyEUException {
         if (ak.getAvion() == null) {
             throw new SafeFlyEUException(("Avion nije definiran"));

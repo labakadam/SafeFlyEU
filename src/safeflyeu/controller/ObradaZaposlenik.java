@@ -47,7 +47,9 @@ public class ObradaZaposlenik extends Obrada<Zaposlenik> implements ObradaSucelj
     }
 
     public void obrisi(Zaposlenik z) throws SafeFlyEUException {
-
+        
+        kontrola(z);
+        
         dao.delete(z);
     }
 

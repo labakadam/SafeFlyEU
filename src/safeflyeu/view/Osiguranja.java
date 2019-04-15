@@ -35,7 +35,6 @@ public class Osiguranja extends javax.swing.JFrame {
 //        );
 //        format = (DecimalFormat) nf;
 //        format.applyPattern("#,###.00");
-
         ucitajPodatke();
     }
 
@@ -224,7 +223,7 @@ public class Osiguranja extends javax.swing.JFrame {
         }
 
         try {
-            obradaOsiguranje.spremi(o);
+            obradaOsiguranje.save(o);
         } catch (SafeFlyEUException e) {
             JOptionPane.showConfirmDialog(null, e.getMessage());
             return;
@@ -249,7 +248,7 @@ public class Osiguranja extends javax.swing.JFrame {
         }
 
         try {
-            obradaOsiguranje.spremi(o);
+            obradaOsiguranje.save(o);
         } catch (SafeFlyEUException e) {
             JOptionPane.showConfirmDialog(null, e.getMessage());
             return;
