@@ -298,11 +298,7 @@ public class Korisnici extends javax.swing.JFrame {
         txtIme.setText(k.getIme());
         txtPrezime.setText(k.getPrezime());
         txtEmail.setText(k.getEmail());
-        try {
-            txtOib.setText((k.getOib()));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        txtOib.setText(k.getOib());
         modelOsiguranje = (DefaultComboBoxModel<Osiguranje>) cmbOsiguranja.getModel();
         for (int i = 0; i < modelOsiguranje.getSize(); i++) {
             if (modelOsiguranje.getElementAt(i).getId() == k.getOsiguranje().getId()) {
@@ -357,11 +353,7 @@ public class Korisnici extends javax.swing.JFrame {
         k.setIme(txtIme.getText());
         k.setPrezime(txtPrezime.getText());
         k.setEmail(txtEmail.getText());
-        try {
-            txtOib.setText((k.getOib()));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        txtOib.setText(k.getOib());
         k.setOsiguranje((Osiguranje) cmbOsiguranja.getSelectedItem());
     }
 

@@ -79,9 +79,9 @@ public class ObradaKorisnik extends Obrada<Korisnik> implements ObradaSucelje<Ko
             throw new SafeFlyEUException("Email nije ispravan");
 
         }
-        if (!Pomocno.checkOIB(k.getOib())) {
-            throw new SafeFlyEUException("Oib je neispravan");
-        }
+//        if (!Pomocno.checkOIB(k.getOib())) {
+//            throw new SafeFlyEUException("Oib je neispravan");
+//        }
     }
 
 }
