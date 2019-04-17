@@ -11,6 +11,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -21,8 +22,8 @@ import javax.persistence.Table;
 @Table
 public class AvioKompanija extends Entitet implements Serializable {
 
-//    @ManyToOne
-//    private Zaposlenik zaposlenik;
+    @ManyToOne
+    private Zaposlenik zaposlenik;
 
     @ManyToOne
     private Osiguranje osiguranje;
@@ -52,13 +53,13 @@ public class AvioKompanija extends Entitet implements Serializable {
         this.osiguranje = osiguranje;
     }
 
-//    public Zaposlenik getZaposlenik() {
-//        return zaposlenik;
-//    }
-//
-//    public void setZaposlenik(Zaposlenik zaposlenik) {
-//        this.zaposlenik = zaposlenik;
-//    }
+    public Zaposlenik getZaposlenik() {
+        return zaposlenik;
+    }
+
+    public void setZaposlenik(Zaposlenik zaposlenik) {
+        this.zaposlenik = zaposlenik;
+    }
 
     public String getNaziv() {
         return naziv;

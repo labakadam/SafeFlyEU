@@ -70,11 +70,9 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setText("Lozinka");
 
         txtLozinka.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        txtLozinka.setText("adam");
         txtLozinka.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
 
         txtEmail.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        txtEmail.setText("adamlabak@gmail.com");
         txtEmail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
 
         btnLogin.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
@@ -102,7 +100,7 @@ public class Login extends javax.swing.JFrame {
         });
 
         jLabel4.setBackground(new java.awt.Color(153, 153, 255));
-        jLabel4.setFont(new java.awt.Font("Leelawadee UI", 2, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("LilyUPC", 1, 24)); // NOI18N
         jLabel4.setText("NISI JOŠ REGISTRIRANI?");
 
         jButton1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N

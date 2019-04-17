@@ -6,10 +6,7 @@
 package safeflyeu.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -20,10 +17,13 @@ import javax.persistence.Table;
 @Table
 public class Osiguranje extends Entitet implements Serializable {
 
+    
     private String naziv;
     private String vrsta;
     private String iban;
     private String oib;
+
+   
 
     public String getNaziv() {
         return naziv;

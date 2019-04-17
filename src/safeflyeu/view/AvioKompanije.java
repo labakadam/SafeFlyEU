@@ -29,6 +29,7 @@ import safeflyeu.pomocno.SafeFlyEUException;
 public class AvioKompanije extends javax.swing.JFrame {
 
     private final ObradaAvioKompanija obradaEntitet;
+    
     private static DefaultComboBoxModel<Osiguranje> modelOsiguranje;
     private static DefaultComboBoxModel<Zaposlenik> modelZaposlenik;
     //private final ObradaKorisnik_AvioKompanija obradaKorisnik_AvioKompanija;
@@ -173,6 +174,12 @@ public class AvioKompanije extends javax.swing.JFrame {
 
         jLabel4.setText("Zaposlenik");
 
+        cmbOsiguranja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbOsiguranjaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -281,35 +288,12 @@ public class AvioKompanije extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajActionPerformed
+         AvioKompanija entitet = new AvioKompanija();
 
-        AvioKompanija ak = new AvioKompanija();
-
-        preuzmiVrijednosti(ak);
-
-        try {
-            obradaEntitet.save(ak);
-            ocistiPolja();
-            ucitajPodatke();
-        } catch (SafeFlyEUException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-        ucitajPodatke();
-        ocistiPolja();
-
-    }//GEN-LAST:event_btnDodajActionPerformed
-
-    private void btnPromjenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromjenaActionPerformed
-
-        avioKompanija = lstEntiteti.getSelectedValue();
-
-        if (avioKompanija == null) {
-            JOptionPane.showConfirmDialog(null, "Prvo odaberite avio kompaniju");
-        }
-
-        preuzmiVrijednosti(avioKompanija);
+        preuzmiVrijednosti(entitet);
 
         try {
-            obradaEntitet.save(avioKompanija);
+            obradaEntitet.save(entitet);
         } catch (SafeFlyEUException e) {
             JOptionPane.showConfirmDialog(null, e.getMessage());
             return;
@@ -318,6 +302,42 @@ public class AvioKompanije extends javax.swing.JFrame {
         ucitajPodatke();
 
         ocistiPolja();
+//        AvioKompanija ak = new AvioKompanija();
+//        ak = preuzmiVrijednosti(ak);
+//        save(ak);
+    }//GEN-LAST:event_btnDodajActionPerformed
+
+    private void btnPromjenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromjenaActionPerformed
+            AvioKompanija entitet = lstEntiteti.getSelectedValue();
+
+        if (entitet == null) {
+            JOptionPane.showConfirmDialog(null, "Prvo odaberite korisnika");
+        }
+
+        preuzmiVrijednosti(entitet);
+
+        try {
+            obradaEntitet.save(entitet);
+        } catch (SafeFlyEUException e) {
+            JOptionPane.showConfirmDialog(null, e.getMessage());
+            return;
+        }
+
+        ucitajPodatke();
+
+        ocistiPolja();
+//        avioKompanija = lstEntiteti.getSelectedValue();
+//        if (avioKompanija == null) {
+//            JOptionPane.showMessageDialog(null, "Prvo odaberite avio kompaniju");
+//            return;
+//        }
+//        try {
+//            obradaEntitet.obrisi(avioKompanija);
+//            ocistiPolja();
+//            ucitajPodatke();
+//        } catch (SafeFlyEUException e) {
+//            JOptionPane.showMessageDialog(null, e.getMessage());
+//        }
     }//GEN-LAST:event_btnPromjenaActionPerformed
 
     private void txtAvionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAvionActionPerformed
@@ -325,20 +345,33 @@ public class AvioKompanije extends javax.swing.JFrame {
     }//GEN-LAST:event_txtAvionActionPerformed
 
     private void btnBrisanjeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrisanjeActionPerformed
-        avioKompanija = lstEntiteti.getSelectedValue();
+//        avioKompanija = lstEntiteti.getSelectedValue();
+//        if (avioKompanija == null) {
+//            JOptionPane.showMessageDialog(null, "Prvo odaberite avio kompaniju");
+//            return;
+//        }
+//        try {
+//            obradaEntitet.obrisi(avioKompanija);
+//            ocistiPolja();
+//            ucitajPodatke();
+//        } catch (SafeFlyEUException e) {
+//            JOptionPane.showMessageDialog(null, e.getMessage());
+//        }
 
-        if (avioKompanija == null) {
-            JOptionPane.showConfirmDialog(null, "Prvo odaberite avio kompaniju");
+        AvioKompanija entitet = lstEntiteti.getSelectedValue();
+
+        if (entitet == null) {
+            JOptionPane.showConfirmDialog(null, "Prvo odaberite korisnika");
         }
 
         try {
-            obradaEntitet.obrisi(avioKompanija);
-            ocistiPolja();
+            obradaEntitet.obrisi(entitet);
             ucitajPodatke();
-        } catch (SafeFlyEUException e) {
-            JOptionPane.showConfirmDialog(null, e.getMessage());
-            return;
+            ocistiPolja();
+        } catch (SafeFlyEUException ex) {
+            JOptionPane.showMessageDialog(null, "Ne mogu obrisati");
         }
+
 
 
     }//GEN-LAST:event_btnBrisanjeActionPerformed
@@ -350,37 +383,53 @@ public class AvioKompanije extends javax.swing.JFrame {
 
         ocistiPolja();
 
-        AvioKompanija ak = lstEntiteti.getSelectedValue();
+        avioKompanija = lstEntiteti.getSelectedValue();
 
-        if (ak == null) {
+        if (avioKompanija == null) {
             return;
         }
+        
 
-        txtNaziv.setText(ak.getNaziv());
-        txtAvion.setText(ak.getAvion());
-        txtIban.setText(ak.getIban());
-        txtLet.setText(ak.getLet());
-        txtOib.setText(ak.getOib());
-        cmbOsiguranja.setSelectedItem(ak.getOsiguranje());
-        //cmbZaposlenici.setSelectedItem(ak.getZaposlenik());
+//        if (evt.getValueIsAdjusting()) {
+//            return;
+//        }
+//        ocistiPolja();
+//
+//        AvioKompanija entitet = lstEntiteti.getSelectedValue();
+//
+//        if (entitet == null) {
+//            return;
+//        }    
+
+        txtNaziv.setText(avioKompanija.getNaziv());
+        txtAvion.setText(avioKompanija.getAvion());
+        txtIban.setText(avioKompanija.getIban());
+        txtLet.setText(avioKompanija.getLet());
+        txtOib.setText(avioKompanija.getOib());
+        cmbOsiguranja.setSelectedItem(avioKompanija.getOsiguranje());
+        cmbZaposlenici.setSelectedItem(avioKompanija.getZaposlenik());
 
 //        preuzmiVrijednosti(ak);
         modelOsiguranje = (DefaultComboBoxModel<Osiguranje>) cmbOsiguranja.getModel();
         for (int i = 0; i < modelOsiguranje.getSize(); i++) {
-            if (modelOsiguranje.getElementAt(i).getId() == ak.getOsiguranje().getId()) {
+            if (modelOsiguranje.getElementAt(i).getId() == avioKompanija.getOsiguranje().getId()) {
                 cmbOsiguranja.setSelectedIndex(i);
                 break;
             }
         }
 
-//        modelZaposlenik = (DefaultComboBoxModel<Zaposlenik>) cmbZaposlenici.getModel();
-//        for (int i = 0; i < modelZaposlenik.getSize(); i++) {
-//            if (modelZaposlenik.getElementAt(i).getId() == ak.getZaposlenik().getId()) {
-//                cmbZaposlenici.setSelectedIndex(i);
-//                break;
-//            }
-//        }
+        modelZaposlenik = (DefaultComboBoxModel<Zaposlenik>) cmbZaposlenici.getModel();
+        for (int i = 0; i < modelZaposlenik.getSize(); i++) {
+            if (modelZaposlenik.getElementAt(i).getId() == avioKompanija.getZaposlenik().getId()) {
+                cmbZaposlenici.setSelectedIndex(i);
+                break;
+            }
+        }
     }//GEN-LAST:event_lstEntitetiValueChanged
+
+    private void cmbOsiguranjaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbOsiguranjaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbOsiguranjaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -421,14 +470,25 @@ public class AvioKompanije extends javax.swing.JFrame {
 
     }
 
+    private void save(AvioKompanija ak) {
+        try {
+            obradaEntitet.save(ak);
+            ocistiPolja();
+            ucitajPodatke();
+        } catch (SafeFlyEUException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+
     private AvioKompanija preuzmiVrijednosti(AvioKompanija ak) {
         ak.setNaziv(txtNaziv.getText());
         ak.setAvion(txtAvion.getText());
         ak.setIban(txtIban.getText());
         ak.setLet(txtLet.getText());
+        ak.setOib(txtOib.getText());
         ak.getOsiguranje((Osiguranje) cmbOsiguranja.getSelectedItem());
         ak.getZaposlenik((Zaposlenik) cmbZaposlenici.getSelectedItem());
-        ak.setOib(txtOib.getText());
+        
         return ak;
 
     }
