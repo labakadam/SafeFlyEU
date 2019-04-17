@@ -27,8 +27,8 @@ public class AvioKompanija extends Entitet implements Serializable {
     @ManyToOne
     private Osiguranje osiguranje;
 
-    @ManyToMany
-    private List<Korisnik> korisnici = new ArrayList<>();
+//    @ManyToMany
+//    private List<Korisnik> korisnici = new ArrayList<>();
 
     private String naziv;
     private String let;
@@ -36,13 +36,13 @@ public class AvioKompanija extends Entitet implements Serializable {
     private String oib;
     private String iban;
 
-    public List<Korisnik> getKorisnici() {
-        return korisnici;
-    }
-
-    public void setKorisnici(List<Korisnik> korisnici) {
-        this.korisnici = korisnici;
-    }
+//    public List<Korisnik> getKorisnici() {
+//        return korisnici;
+//    }
+//
+//    public void setKorisnici(List<Korisnik> korisnici) {
+//        this.korisnici = korisnici;
+//    }
 
     public Osiguranje getOsiguranje() {
         return osiguranje;

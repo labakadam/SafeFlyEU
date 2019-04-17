@@ -62,12 +62,12 @@ public class AvioKompanije extends javax.swing.JFrame {
 
     private void ucitajPodatke() {
         DefaultListModel<AvioKompanija> m = new DefaultListModel<>();
-//        obradaEntitet.getLista().forEach((ak) -> {
-//            m.addElement(ak);
-//        });
-        for (AvioKompanija ak : obradaEntitet.getLista()) {
+        obradaEntitet.getLista().forEach((ak) -> {
             m.addElement(ak);
-        }
+        });
+//        for (AvioKompanija ak : obradaEntitet.getLista()) {
+//            m.addElement(ak);
+//        }
         lstEntiteti.setModel(m);
     }
 
@@ -119,6 +119,11 @@ public class AvioKompanije extends javax.swing.JFrame {
             }
         });
 
+        lstEntiteti.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lstEntitetiValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(lstEntiteti);
 
         btnDodaj.setText("Dodaj");
@@ -261,45 +266,49 @@ public class AvioKompanije extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    private void lstEntitetiValueChanged(javax.swing.event.ListSelectionEvent evt) {
-        if (evt.getValueIsAdjusting()) {
-            return;
-        }
-
-        AvioKompanija ak = lstEntiteti.getSelectedValue();
-
-        if (ak == null) {
-            return;
-        }
-        ocistiPolja();
-
-        txtNaziv.setText(ak.getNaziv());
-        txtAvion.setText(ak.getAvion());
-        txtIban.setText(ak.getIban());
-        txtLet.setText(ak.getLet());
-        txtOib.setText(ak.getOib());
-
-//        preuzmiVrijednosti(ak);
-
-        modelOsiguranje = (DefaultComboBoxModel<Osiguranje>) cmbOsiguranja.getModel();
-        for (int i = 0; i < modelOsiguranje.getSize(); i++) {
-            if (modelOsiguranje.getElementAt(i).getId() == ak.getOsiguranje().getId()) {
-                cmbOsiguranja.setSelectedIndex(i);
-                break;
-            }
-        }
-
-        modelZaposlenik = (DefaultComboBoxModel<Zaposlenik>) cmbZaposlenici.getModel();
-        for (int i = 0; i < modelZaposlenik.getSize(); i++) {
-            if (modelZaposlenik.getElementAt(i).getId() == ak.getZaposlenik().getId()) {
-                cmbZaposlenici.setSelectedIndex(i);
-                break;
-            }
-        }
-
-//        preuzmiVrijednosti(ak);
-
-    }
+//    private void lstEntitetiValueChanged(javax.swing.event.ListSelectionEvent evt) {
+//        if (evt.getValueIsAdjusting()) {
+//            return;
+//        }
+//        
+//        ocistiPolja();
+//
+//        AvioKompanija ak = lstEntiteti.getSelectedValue();
+//
+//        if (ak == null) {
+//            return;
+//        }
+//        
+//
+//        txtNaziv.setText(ak.getNaziv());
+//        txtAvion.setText(ak.getAvion());
+//        txtIban.setText(ak.getIban());
+//        txtLet.setText(ak.getLet());
+//        txtOib.setText(ak.getOib());
+//        cmbOsiguranja.setSelectedItem(ak.getOsiguranje());
+//        cmbZaposlenici.setSelectedItem(ak.getZaposlenik());
+//
+////        preuzmiVrijednosti(ak);
+//
+//        modelOsiguranje = (DefaultComboBoxModel<Osiguranje>) cmbOsiguranja.getModel();
+//        for (int i = 0; i < modelOsiguranje.getSize(); i++) {
+//            if (modelOsiguranje.getElementAt(i).getId() == ak.getOsiguranje().getId()) {
+//                cmbOsiguranja.setSelectedIndex(i);
+//                break;
+//            }
+//        }
+//
+//        modelZaposlenik = (DefaultComboBoxModel<Zaposlenik>) cmbZaposlenici.getModel();
+//        for (int i = 0; i < modelZaposlenik.getSize(); i++) {
+//            if (modelZaposlenik.getElementAt(i).getId() == ak.getZaposlenik().getId()) {
+//                cmbZaposlenici.setSelectedIndex(i);
+//                break;
+//            }
+//        }
+//
+////        preuzmiVrijednosti(ak);
+//
+//    }
     private void txtLetKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLetKeyReleased
         //if(evt.getKeyCode()==KeyEvent.VK_ENTER){
         ucitajPodatke();
@@ -380,6 +389,47 @@ public class AvioKompanije extends javax.swing.JFrame {
 
         ocistiPolja();
     }//GEN-LAST:event_btnBrisanjeActionPerformed
+
+    private void lstEntitetiValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstEntitetiValueChanged
+        if (evt.getValueIsAdjusting()) {
+            return;
+        }
+        
+        ocistiPolja();
+
+        AvioKompanija ak = lstEntiteti.getSelectedValue();
+
+        if (ak == null) {
+            return;
+        }
+        
+
+        txtNaziv.setText(ak.getNaziv());
+        txtAvion.setText(ak.getAvion());
+        txtIban.setText(ak.getIban());
+        txtLet.setText(ak.getLet());
+        txtOib.setText(ak.getOib());
+        cmbOsiguranja.setSelectedItem(ak.getOsiguranje());
+        cmbZaposlenici.setSelectedItem(ak.getZaposlenik());
+
+//        preuzmiVrijednosti(ak);
+
+        modelOsiguranje = (DefaultComboBoxModel<Osiguranje>) cmbOsiguranja.getModel();
+        for (int i = 0; i < modelOsiguranje.getSize(); i++) {
+            if (modelOsiguranje.getElementAt(i).getId() == ak.getOsiguranje().getId()) {
+                cmbOsiguranja.setSelectedIndex(i);
+                break;
+            }
+        }
+
+        modelZaposlenik = (DefaultComboBoxModel<Zaposlenik>) cmbZaposlenici.getModel();
+        for (int i = 0; i < modelZaposlenik.getSize(); i++) {
+            if (modelZaposlenik.getElementAt(i).getId() == ak.getZaposlenik().getId()) {
+                cmbZaposlenici.setSelectedIndex(i);
+                break;
+            }
+        }
+    }//GEN-LAST:event_lstEntitetiValueChanged
 
     /**
      * @param args the command line arguments

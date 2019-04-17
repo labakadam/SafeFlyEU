@@ -86,5 +86,9 @@ public class Zaposlenik extends Entitet implements Serializable {
     public String toString() {
         return ime + " " + prezime;
     }
+    
+    public void getAvioKompanija(AvioKompanija avioKompanija) {
+        this.avioKompanija = avioKompanija;
+    }
 
 }

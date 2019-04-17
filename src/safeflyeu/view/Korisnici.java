@@ -21,6 +21,7 @@ import safeflyeu.pomocno.SafeFlyEUException;
 public class Korisnici extends javax.swing.JFrame {
 
     private final ObradaKorisnik obradaEntitet;
+
     private static DefaultComboBoxModel<Osiguranje> modelOsiguranje;
 
     /**
@@ -287,19 +288,23 @@ public class Korisnici extends javax.swing.JFrame {
         if (evt.getValueIsAdjusting()) {
             return;
         }
-
+        ocistiPolja();
+        
         Korisnik entitet = lstEntiteti.getSelectedValue();
 
         if (entitet == null) {
             return;
         }
-        ocistiPolja();
+        
         
         
         txtIme.setText(entitet.getIme());
         txtPrezime.setText(entitet.getPrezime());
         txtEmail.setText(entitet.getEmail());
         txtOib.setText(entitet.getOib());
+        cmbOsiguranja.setSelectedItem(entitet.getOsiguranje());
+        
+        
         modelOsiguranje = (DefaultComboBoxModel<Osiguranje>) cmbOsiguranja.getModel();
         for (int i = 0; i < modelOsiguranje.getSize(); i++) {
             if (modelOsiguranje.getElementAt(i).getId() == entitet.getOsiguranje().getId()) {
@@ -307,6 +312,7 @@ public class Korisnici extends javax.swing.JFrame {
                 break;
             }
         }
+        
 
     }//GEN-LAST:event_lstEntitetiValueChanged
 
@@ -350,21 +356,26 @@ public class Korisnici extends javax.swing.JFrame {
         cmbOsiguranja.setSelectedIndex(0);
     }
 
-    private void preuzmiVrijednosti(Korisnik entitet) {
+    private Korisnik preuzmiVrijednosti(Korisnik entitet) {
         entitet.setIme(txtIme.getText());
         entitet.setPrezime(txtPrezime.getText());
         entitet.setEmail(txtEmail.getText());
         entitet.setOib(txtOib.getText());
         entitet.getOsiguranje((Osiguranje) cmbOsiguranja.getSelectedItem());
+        return entitet;
         
     }
 
     private void ucitajPodatke() {
 
         DefaultListModel<Korisnik> m = new DefaultListModel<>();
-        for (Korisnik entitet : obradaEntitet.getLista()) {
-            m.addElement(entitet);
-        }
+        obradaEntitet.getLista().forEach((k) -> {
+            m.addElement(k);
+        });
+      
+//        for (Korisnik entitet : obradaEntitet.getLista()) {
+//            m.addElement(entitet);
+//        }
         lstEntiteti.setModel(m);
 
     }
@@ -382,4 +393,6 @@ public class Korisnici extends javax.swing.JFrame {
 //        }
 //
 //    }
+    
+     
 }

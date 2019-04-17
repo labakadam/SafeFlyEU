@@ -37,9 +37,9 @@ public class ObradaAvioKompanija extends Obrada<AvioKompanija> implements Obrada
 
     @Override
     public void obrisi(AvioKompanija ak) throws SafeFlyEUException {
-        if (ak.getKorisnici().size() > 0) {
-            throw new SafeFlyEUException("Ne možete brisati, avio kompanija ima korisnike");
-        }
+//        if (ak.getKorisnici().size() > 0) {
+//            throw new SafeFlyEUException("Ne možete brisati, avio kompanija ima korisnike");
+//        }
         dao.delete(ak);
     }
 
