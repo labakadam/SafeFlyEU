@@ -75,7 +75,7 @@ public class Korisnik extends Entitet implements Serializable {
     }
 
     public void getOsiguranje(Osiguranje osiguranje) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.osiguranje = osiguranje;
     }
 
 }

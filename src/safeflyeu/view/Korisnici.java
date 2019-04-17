@@ -294,7 +294,8 @@ public class Korisnici extends javax.swing.JFrame {
             return;
         }
         ocistiPolja();
-
+        
+        
         txtIme.setText(entitet.getIme());
         txtPrezime.setText(entitet.getPrezime());
         txtEmail.setText(entitet.getEmail());

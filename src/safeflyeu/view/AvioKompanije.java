@@ -28,7 +28,7 @@ public class AvioKompanije extends javax.swing.JFrame {
     private final ObradaAvioKompanija obradaEntitet;
     private static DefaultComboBoxModel<Osiguranje> modelOsiguranje;
     private static DefaultComboBoxModel<Zaposlenik> modelZaposlenik;
-    private AvioKompanija avioKompanija;
+//    private AvioKompanija avioKompanija;
 
     /**
      * Creates new form AvioKompanija
@@ -62,9 +62,12 @@ public class AvioKompanije extends javax.swing.JFrame {
 
     private void ucitajPodatke() {
         DefaultListModel<AvioKompanija> m = new DefaultListModel<>();
-        obradaEntitet.getLista().forEach((ak) -> {
+//        obradaEntitet.getLista().forEach((ak) -> {
+//            m.addElement(ak);
+//        });
+        for (AvioKompanija ak : obradaEntitet.getLista()) {
             m.addElement(ak);
-        });
+        }
         lstEntiteti.setModel(m);
     }
 
@@ -263,20 +266,21 @@ public class AvioKompanije extends javax.swing.JFrame {
             return;
         }
 
-        ocistiPolja();
-
         AvioKompanija ak = lstEntiteti.getSelectedValue();
 
         if (ak == null) {
             return;
         }
+        ocistiPolja();
 
         txtNaziv.setText(ak.getNaziv());
-        //System.out.println(g.getDatumPocetka().getClass().getName());
+        txtAvion.setText(ak.getAvion());
+        txtIban.setText(ak.getIban());
+        txtLet.setText(ak.getLet());
+        txtOib.setText(ak.getOib());
 
-        //1. način
-        //cmbSmjerovi.setSelectedItem(g.getSmjer());
-        //2. način
+//        preuzmiVrijednosti(ak);
+
         modelOsiguranje = (DefaultComboBoxModel<Osiguranje>) cmbOsiguranja.getModel();
         for (int i = 0; i < modelOsiguranje.getSize(); i++) {
             if (modelOsiguranje.getElementAt(i).getId() == ak.getOsiguranje().getId()) {
@@ -293,7 +297,7 @@ public class AvioKompanije extends javax.swing.JFrame {
             }
         }
 
-        preuzmiVrijednosti(ak);
+//        preuzmiVrijednosti(ak);
 
     }
     private void txtLetKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLetKeyReleased
@@ -363,7 +367,7 @@ public class AvioKompanije extends javax.swing.JFrame {
             JOptionPane.showConfirmDialog(null, "Prvo odaberite avio kompaniju");
         }
 
-        preuzmiVrijednosti(ak);
+        
 
         try {
             obradaEntitet.save(ak);
@@ -416,7 +420,7 @@ public class AvioKompanije extends javax.swing.JFrame {
 
     }
 
-    private AvioKompanija preuzmiVrijednosti(AvioKompanija ak) {
+    private void preuzmiVrijednosti(AvioKompanija ak) {
         ak.setNaziv(txtNaziv.getText());
         ak.setAvion(txtAvion.getText());
         ak.setIban(txtIban.getText());
@@ -424,18 +428,17 @@ public class AvioKompanije extends javax.swing.JFrame {
         ak.getOsiguranje((Osiguranje) cmbOsiguranja.getSelectedItem());
         ak.getZaposlenik((Zaposlenik) cmbZaposlenici.getSelectedItem());
         ak.setOib(txtOib.getText());
-        return null;
-       
+
     }
 
-    private void save(AvioKompanija ak) {
-        try {
-            obradaEntitet.save(ak);
-            ocistiPolja();
-            ucitajPodatke();
-        } catch (SafeFlyEUException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-    }
+//    private void save(AvioKompanija entitet) {
+//        try {
+//            obradaEntitet.save(entitet);
+//            ocistiPolja();
+//            ucitajPodatke();
+//        } catch (SafeFlyEUException e) {
+//            JOptionPane.showMessageDialog(null, e.getMessage());
+//        }
+//    }
 
 }
