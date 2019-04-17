@@ -40,7 +40,7 @@ public class Korisnici extends javax.swing.JFrame {
             os.addElement(s);
         });
         cmbOsiguranja.setModel(os);
-        
+
         ucitajPodatke();
     }
 
@@ -289,22 +289,19 @@ public class Korisnici extends javax.swing.JFrame {
             return;
         }
         ocistiPolja();
-        
+
         Korisnik entitet = lstEntiteti.getSelectedValue();
 
         if (entitet == null) {
             return;
         }
-        
-        
-        
+
         txtIme.setText(entitet.getIme());
         txtPrezime.setText(entitet.getPrezime());
         txtEmail.setText(entitet.getEmail());
         txtOib.setText(entitet.getOib());
         cmbOsiguranja.setSelectedItem(entitet.getOsiguranje());
-        
-        
+
         modelOsiguranje = (DefaultComboBoxModel<Osiguranje>) cmbOsiguranja.getModel();
         for (int i = 0; i < modelOsiguranje.getSize(); i++) {
             if (modelOsiguranje.getElementAt(i).getId() == entitet.getOsiguranje().getId()) {
@@ -312,7 +309,7 @@ public class Korisnici extends javax.swing.JFrame {
                 break;
             }
         }
-        
+
 
     }//GEN-LAST:event_lstEntitetiValueChanged
 
@@ -363,7 +360,7 @@ public class Korisnici extends javax.swing.JFrame {
         entitet.setOib(txtOib.getText());
         entitet.getOsiguranje((Osiguranje) cmbOsiguranja.getSelectedItem());
         return entitet;
-        
+
     }
 
     private void ucitajPodatke() {
@@ -372,14 +369,10 @@ public class Korisnici extends javax.swing.JFrame {
         obradaEntitet.getLista().forEach((k) -> {
             m.addElement(k);
         });
-      
-//        for (Korisnik entitet : obradaEntitet.getLista()) {
-//            m.addElement(entitet);
-//        }
+
         lstEntiteti.setModel(m);
 
     }
-
 
 //    private class DuzeUcitanjeEntiteta extends Thread {
 //
@@ -393,6 +386,4 @@ public class Korisnici extends javax.swing.JFrame {
 //        }
 //
 //    }
-    
-     
 }

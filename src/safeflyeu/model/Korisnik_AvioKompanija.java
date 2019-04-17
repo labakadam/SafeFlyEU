@@ -78,9 +78,4 @@ public class Korisnik_AvioKompanija extends Entitet implements Serializable {
         this.prtljaga = prtljaga;
     }
 
-    @Override
-    public String toString() {
-        return "Korisnik_AvioKompanija{" + "korisnik=" + korisnik + ", avioKompanija=" + avioKompanija + ", oznakaSjedala=" + oznakaSjedala + ", hrana=" + hrana + ", pice=" + pice + ", prtljaga=" + prtljaga + '}';
-    }
-
 }

@@ -22,12 +22,22 @@ import javax.persistence.Table;
 @Table
 public class Korisnik extends Entitet implements Serializable {
 
+    @ManyToOne
     private Osiguranje osiguranje;
-
+//    @ManyToOne
+//    private AvioKompanija avioKompanija;
     private String ime;
     private String prezime;
     private String oib;
     private String email;
+
+//    public AvioKompanija getAvioKompanija() {
+//        return avioKompanija;
+//    }
+//
+//    public void setAvioKompanija(AvioKompanija avioKompanija) {
+//        this.avioKompanija = avioKompanija;
+//    }
 
     public Osiguranje getOsiguranje() {
         return osiguranje;

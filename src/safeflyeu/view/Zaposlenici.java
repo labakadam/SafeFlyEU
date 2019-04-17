@@ -297,25 +297,22 @@ public class Zaposlenici extends javax.swing.JFrame {
             return;
         }
 
-        
+        ocistiPolja();
 
         Zaposlenik z = lstEntiteti.getSelectedValue();
 
         if (z == null) {
             return;
         }
-        ocistiPolja();
+        
 
         txtIme.setText(z.getIme());
         txtPrezime.setText(z.getPrezime());
         txtEmail.setText(z.getEmail());
         txtBrojMobitela.setText(z.getBrojMobitela());
         txtBrojUgovora.setText(z.getBrojUgovora());
-        try {
-            txtOib.setText((z.getOib()));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        cmbAvioKompanije.setSelectedItem(z.getAvioKompanija());
+        txtOib.setText(z.getOib());
         
 
         modelAvioKompanija = (DefaultComboBoxModel<AvioKompanija>) cmbAvioKompanije.getModel();
@@ -377,17 +374,15 @@ public class Zaposlenici extends javax.swing.JFrame {
     
     }
 
-    private void preuzmiVrijednosti(Zaposlenik z) {
+    private Zaposlenik preuzmiVrijednosti(Zaposlenik z) {
         z.setIme(txtIme.getText());
         z.setPrezime(txtPrezime.getText());
         z.setEmail(txtEmail.getText());
-        try {
-            z.setOib(txtOib.getText());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        z.setBrojMobitela(txtBrojUgovora.getText());
+        z.setOib(txtOib.getText());
+        z.setBrojMobitela(txtBrojMobitela.getText());
         z.setBrojUgovora(txtBrojUgovora.getText());
+        z.getAvioKompanija((AvioKompanija) cmbAvioKompanije.getSelectedItem());
+        return z;
     }
 
     

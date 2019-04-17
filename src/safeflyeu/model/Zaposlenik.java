@@ -7,6 +7,8 @@ package safeflyeu.model;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -16,7 +18,7 @@ import javax.persistence.Table;
 @Entity
 @Table
 public class Zaposlenik extends Entitet implements Serializable {
-
+    @ManyToOne
     private AvioKompanija avioKompanija;
 
     private String ime;
