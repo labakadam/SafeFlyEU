@@ -18,8 +18,6 @@ import javax.persistence.Table;
 @Entity
 @Table
 public class Zaposlenik extends Entitet implements Serializable {
-    @ManyToOne
-    private AvioKompanija avioKompanija;
 
     private String ime;
     private String prezime;
@@ -27,14 +25,6 @@ public class Zaposlenik extends Entitet implements Serializable {
     private String brojMobitela;
     private String brojUgovora;
     private String oib;
-
-    public AvioKompanija getAvioKompanija() {
-        return avioKompanija;
-    }
-
-    public void setAvioKompanija(AvioKompanija avioKompanija) {
-        this.avioKompanija = avioKompanija;
-    }
 
     public String getIme() {
         return ime;
@@ -87,10 +77,6 @@ public class Zaposlenik extends Entitet implements Serializable {
     @Override
     public String toString() {
         return ime + " " + prezime;
-    }
-    
-    public void getAvioKompanija(AvioKompanija avioKompanija) {
-        this.avioKompanija = avioKompanija;
     }
 
 }

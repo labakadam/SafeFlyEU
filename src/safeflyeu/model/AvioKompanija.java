@@ -8,7 +8,10 @@ package safeflyeu.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -23,14 +26,14 @@ import javax.persistence.Table;
 public class AvioKompanija extends Entitet implements Serializable {
 
     @ManyToOne
-    private Zaposlenik zaposlenik;
-
-    @ManyToOne
-    private Osiguranje osiguranje;
+    private List<Zaposlenik> zaposlenik = new ArrayList<>();
+//    private Zaposlenik zaposlenik;
+//
+  @ManyToOne
+    private List<Osiguranje> osiguranje = new ArrayList<>();
 
 //    @ManyToMany
 //    private List<Korisnik> korisnici = new ArrayList<>();
-
     private String naziv;
     private String let;
     private String avion;
@@ -45,21 +48,14 @@ public class AvioKompanija extends Entitet implements Serializable {
 //        this.korisnici = korisnici;
 //    }
 
-    public Osiguranje getOsiguranje() {
+    public List<Osiguranje> getOsiguranje() {
         return osiguranje;
     }
 
-    public void setOsiguranje(Osiguranje osiguranje) {
+    public void setOsiguranje(List<Osiguranje> osiguranje) {
         this.osiguranje = osiguranje;
     }
-
-    public Zaposlenik getZaposlenik() {
-        return zaposlenik;
-    }
-
-    public void setZaposlenik(Zaposlenik zaposlenik) {
-        this.zaposlenik = zaposlenik;
-    }
+   
 
     public String getNaziv() {
         return naziv;
@@ -110,8 +106,13 @@ public class AvioKompanija extends Entitet implements Serializable {
         return osiguranje;
     }
 
-    public Zaposlenik getZaposlenik(Zaposlenik zaposlenik) {
+    public List<Zaposlenik> getZaposlenik() {
         return zaposlenik;
+
+    }
+
+    public void setZaposlenik(List<Zaposlenik> zaposlenik) {
+        this.zaposlenik = zaposlenik;
     }
 
 }

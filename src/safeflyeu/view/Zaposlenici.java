@@ -24,26 +24,23 @@ import safeflyeu.pomocno.SafeFlyEUException;
 public class Zaposlenici extends javax.swing.JFrame {
 
     private final ObradaZaposlenik obradaEntitet;
-    private static DefaultComboBoxModel<AvioKompanija> modelAvioKompanija;
-    
-    
+//    private static DefaultComboBoxModel<AvioKompanija> modelAvioKompanija;
+
     public Zaposlenici() {
         initComponents();
         obradaEntitet = new ObradaZaposlenik();
 
-        DefaultComboBoxModel<AvioKompanija> akm = new DefaultComboBoxModel<>();
-        AvioKompanija a = new AvioKompanija();
-        a.setId(0);
-        a.setNaziv("Odaberite avio kompaniju");
-        akm.addElement(a);
-        new ObradaAvioKompanija().getLista().forEach((s) -> {
-            akm.addElement(s);
-        });
-        cmbAvioKompanije.setModel(akm);
-        ucitajPodatke();
+//        DefaultComboBoxModel<AvioKompanija> akm = new DefaultComboBoxModel<>();
+//        AvioKompanija a = new AvioKompanija();
+//        a.setId(0);
+//        a.setNaziv("Odaberite avio kompaniju");
+//        akm.addElement(a);
+//        new ObradaAvioKompanija().getLista().forEach((s) -> {
+//            akm.addElement(s);
+//        });
+//        cmbAvioKompanije.setModel(akm);
+//        ucitajPodatke();
     }
-
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,7 +51,6 @@ public class Zaposlenici extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        cmbAvioKompanije = new javax.swing.JComboBox<>();
         btnDodaj = new javax.swing.JButton();
         btnPromjena = new javax.swing.JButton();
         btnBrisanje = new javax.swing.JButton();
@@ -66,7 +62,6 @@ public class Zaposlenici extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         lstEntiteti = new javax.swing.JList<>();
         jButton1 = new javax.swing.JButton();
@@ -109,8 +104,6 @@ public class Zaposlenici extends javax.swing.JFrame {
         jLabel3.setText("Email");
 
         jLabel4.setText("Oib");
-
-        jLabel5.setText("Avio-kompanije");
 
         lstEntiteti.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -156,7 +149,6 @@ public class Zaposlenici extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(105, 105, 105)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
                             .addComponent(txtOib, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)
                             .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -168,9 +160,8 @@ public class Zaposlenici extends javax.swing.JFrame {
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtBrojUgovora, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtBrojMobitela, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(cmbAvioKompanije, javax.swing.GroupLayout.Alignment.LEADING, 0, 156, Short.MAX_VALUE))))
+                                .addComponent(txtBrojUgovora, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                                .addComponent(txtBrojMobitela, javax.swing.GroupLayout.Alignment.LEADING))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(btnDodaj, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -216,11 +207,7 @@ public class Zaposlenici extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtOib, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbAvioKompanije, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(59, 59, 59)
                         .addComponent(jLabel7)))
                 .addGap(9, 9, 9)
                 .addComponent(txtBrojMobitela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -241,32 +228,33 @@ public class Zaposlenici extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajActionPerformed
-        Zaposlenik z = new Zaposlenik();
-        
-        preuzmiVrijednosti(z);
+        Zaposlenik entitet = new Zaposlenik();
+
+        preuzmiVrijednosti(entitet);
 
         try {
-            obradaEntitet.save(z);
-            ocistiPolja();
-            ucitajPodatke();
+            obradaEntitet.save(entitet);
+//            ocistiPolja();
+//            ucitajPodatke();
         } catch (SafeFlyEUException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
+            return;
         }
         ucitajPodatke();
         ocistiPolja();
     }//GEN-LAST:event_btnDodajActionPerformed
 
     private void btnPromjenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromjenaActionPerformed
-        Zaposlenik z = lstEntiteti.getSelectedValue();
+        Zaposlenik entitet = lstEntiteti.getSelectedValue();
 
-        if (z == null) {
+        if (entitet == null) {
             JOptionPane.showConfirmDialog(null, "Prvo odaberite zaposlenika");
         }
 
-        preuzmiVrijednosti(z);
+        preuzmiVrijednosti(entitet);
 
         try {
-            obradaEntitet.save(z);
+            obradaEntitet.save(entitet);
         } catch (SafeFlyEUException e) {
             JOptionPane.showConfirmDialog(null, e.getMessage());
             return;
@@ -278,13 +266,13 @@ public class Zaposlenici extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPromjenaActionPerformed
 
     private void btnBrisanjeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrisanjeActionPerformed
-        Zaposlenik z = lstEntiteti.getSelectedValue();
+        Zaposlenik entitet = lstEntiteti.getSelectedValue();
 
-        if (z == null) {
+        if (entitet == null) {
             JOptionPane.showConfirmDialog(null, "Prvo odaberite korisnika");
         }
         try {
-            obradaEntitet.obrisi(z);
+            obradaEntitet.obrisi(entitet);
             ucitajPodatke();
             ocistiPolja();
         } catch (SafeFlyEUException e) {
@@ -299,29 +287,32 @@ public class Zaposlenici extends javax.swing.JFrame {
 
         ocistiPolja();
 
-        Zaposlenik z = lstEntiteti.getSelectedValue();
+        Zaposlenik entitet = lstEntiteti.getSelectedValue();
 
-        if (z == null) {
+        if (entitet == null) {
             return;
         }
-        
 
-        txtIme.setText(z.getIme());
-        txtPrezime.setText(z.getPrezime());
-        txtEmail.setText(z.getEmail());
-        txtBrojMobitela.setText(z.getBrojMobitela());
-        txtBrojUgovora.setText(z.getBrojUgovora());
-        cmbAvioKompanije.setSelectedItem(z.getAvioKompanija());
-        txtOib.setText(z.getOib());
-        
-
-        modelAvioKompanija = (DefaultComboBoxModel<AvioKompanija>) cmbAvioKompanije.getModel();
-        for (int i = 0; i < modelAvioKompanija.getSize(); i++) {
-            if (modelAvioKompanija.getElementAt(i).getId() == z.getAvioKompanija().getId()) {
-                cmbAvioKompanije.setSelectedIndex(i);
-                break;
-            }
+        txtIme.setText(entitet.getIme());
+        txtPrezime.setText(entitet.getPrezime());
+        txtEmail.setText(entitet.getEmail());
+        txtBrojMobitela.setText(entitet.getBrojMobitela());
+        txtBrojUgovora.setText(entitet.getBrojUgovora());
+//        cmbAvioKompanije.setSelectedItem(entitet.getAvioKompanija());
+//        txtOib.setText(entitet.getOib());
+        try {
+            txtOib.setText((entitet.getOib()));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+//        modelAvioKompanija = (DefaultComboBoxModel<AvioKompanija>) cmbAvioKompanije.getModel();
+//        for (int i = 0; i < modelAvioKompanija.getSize(); i++) {
+//            if (modelAvioKompanija.getElementAt(i).getId() == entitet.getAvioKompanija().getId()) {
+//                cmbAvioKompanije.setSelectedIndex(i);
+//                break;
+//            }
+//        }
     }//GEN-LAST:event_lstEntitetiValueChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -330,8 +321,8 @@ public class Zaposlenici extends javax.swing.JFrame {
 
     private void txtUvjetKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUvjetKeyReleased
         //if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            ucitajPodatke();
-            // }
+        ucitajPodatke();
+        // }
     }//GEN-LAST:event_txtUvjetKeyReleased
 
 
@@ -340,13 +331,11 @@ public class Zaposlenici extends javax.swing.JFrame {
     private javax.swing.JButton btnDodaj;
     private javax.swing.JButton btnPromjena;
     private javax.swing.JCheckBox chbLimitator;
-    private javax.swing.JComboBox<AvioKompanija> cmbAvioKompanije;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -361,7 +350,6 @@ public class Zaposlenici extends javax.swing.JFrame {
     private javax.swing.JTextField txtUvjet;
     // End of variables declaration//GEN-END:variables
 
-    
     private void ocistiPolja() {
         txtIme.setText("");
         txtPrezime.setText("");
@@ -369,31 +357,28 @@ public class Zaposlenici extends javax.swing.JFrame {
         txtOib.setText("");
         txtBrojUgovora.setText("");
         txtBrojMobitela.setText("");
-        
-        cmbAvioKompanije.setSelectedIndex(0);
-    
+
+//        cmbAvioKompanije.setSelectedIndex(0);
     }
 
-    private Zaposlenik preuzmiVrijednosti(Zaposlenik z) {
-        z.setIme(txtIme.getText());
-        z.setPrezime(txtPrezime.getText());
-        z.setEmail(txtEmail.getText());
-        z.setOib(txtOib.getText());
-        z.setBrojMobitela(txtBrojMobitela.getText());
-        z.setBrojUgovora(txtBrojUgovora.getText());
-        z.getAvioKompanija((AvioKompanija) cmbAvioKompanije.getSelectedItem());
-        return z;
+    private Zaposlenik preuzmiVrijednosti(Zaposlenik entitet) {
+        entitet.setIme(txtIme.getText());
+        entitet.setPrezime(txtPrezime.getText());
+        entitet.setEmail(txtEmail.getText());
+        entitet.setOib(txtOib.getText());
+        entitet.setBrojMobitela(txtBrojMobitela.getText());
+        entitet.setBrojUgovora(txtBrojUgovora.getText());
+//        entitet.getAvioKompanija((AvioKompanija) cmbAvioKompanije.getSelectedItem());
+        return entitet;
     }
 
-    
     private void ucitajPodatke() {
-        
-        
+
         DefaultListModel<Zaposlenik> m = new DefaultListModel<>();
-        obradaEntitet.getLista().forEach((z) -> {
-            m.addElement(z);
+        obradaEntitet.getLista().forEach((entitet) -> {
+            m.addElement(entitet);
         });
         lstEntiteti.setModel(m);
-    
+
     }
 }

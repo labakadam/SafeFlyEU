@@ -6,7 +6,9 @@
 package safeflyeu.controller;
 
 import java.util.List;
+import org.hibernate.Query;
 import safeflyeu.model.Osiguranje;
+import safeflyeu.model.Zaposlenik;
 import safeflyeu.pomocno.HibernateUtil;
 import safeflyeu.pomocno.Pomocno;
 import safeflyeu.pomocno.SafeFlyEUException;
@@ -23,6 +25,18 @@ public class ObradaOsiguranje extends Obrada<Osiguranje> {
 
     public List<Osiguranje> getLista() {
         return HibernateUtil.getSession().createQuery("from Osiguranje").list();
+    }
+
+    public List<Osiguranje> getLista(String uvjet, boolean isSelected) {
+
+        Query query = HibernateUtil.getSession().createQuery("from Osiguranje a "
+                + " where concat(a.naziv) like :uvjet")
+                .setString("uvjet", "%" + uvjet + "%");
+        if (isSelected) {
+            query.setMaxResults(50);
+        }
+
+        return query.list();
     }
 
     public Osiguranje save(Osiguranje o) throws SafeFlyEUException {
