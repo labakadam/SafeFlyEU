@@ -5,14 +5,22 @@
  */
 package safeflyeu.view;
 
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.element.Paragraph;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.text.Document;
+import org.dom4j.DocumentException;
 import safeflyeu.controller.ObradaAvioKompanija;
 import safeflyeu.controller.ObradaKorisnik;
 import safeflyeu.controller.ObradaKorisnik_AvioKompanija;
@@ -133,6 +141,8 @@ public class AvioKompanije extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         txtOznakaSjedala = new javax.swing.JTextField();
         btnIspisi = new javax.swing.JButton();
+        txtSlovoSjedala = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Avio-Kompanije");
@@ -272,6 +282,9 @@ public class AvioKompanije extends javax.swing.JFrame {
             }
         });
 
+        jLabel14.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel14.setText("--");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -313,10 +326,15 @@ public class AvioKompanije extends javax.swing.JFrame {
                                     .addComponent(chbHrana, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(chbPice)
                                     .addComponent(chbPrtljaga))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel13)
-                                    .addComponent(txtOznakaSjedala, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(26, 26, 26)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtOznakaSjedala, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(txtSlovoSjedala, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel13)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtUvjet, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -387,7 +405,7 @@ public class AvioKompanije extends javax.swing.JFrame {
                             .addComponent(btnBrisanje)
                             .addComponent(btnPromjena)
                             .addComponent(btnDodaj))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                         .addComponent(btnExit)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
@@ -426,10 +444,14 @@ public class AvioKompanije extends javax.swing.JFrame {
                                 .addComponent(chbPrtljaga)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
                                 .addComponent(jLabel13)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtOznakaSjedala, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
-                                .addGap(118, 118, 118))))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtOznakaSjedala, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtSlovoSjedala, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel14))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
 
         pack();
@@ -558,9 +580,8 @@ public class AvioKompanije extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Odaberite korisnika iz baze");
             return;
         }
-        
+
         //Korisnik_AvioKompanija kak = new Korisnik_AvioKompanija();
-        
         lstKorisnikaUBazi.getSelectedValuesList().forEach((p) -> {
 
             boolean postoji = false;
@@ -640,7 +661,16 @@ public class AvioKompanije extends javax.swing.JFrame {
     }//GEN-LAST:event_chbPrtljagaActionPerformed
 
     private void btnIspisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIspisiActionPerformed
+        Korisnik korisnik = new Korisnik();
+
+        korisnik = lstKorisnikaUAvioKompaniji.getSelectedValue();
+        if (korisnik == null) {
+            JOptionPane.showMessageDialog(null, "Odaberite korisnika za izradu karte");
+        }
         
+        
+
+
     }//GEN-LAST:event_btnIspisiActionPerformed
 
     /**
@@ -666,6 +696,7 @@ public class AvioKompanije extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -686,6 +717,7 @@ public class AvioKompanije extends javax.swing.JFrame {
     private javax.swing.JTextField txtNaziv;
     private javax.swing.JTextField txtOib;
     private javax.swing.JTextField txtOznakaSjedala;
+    private javax.swing.JTextField txtSlovoSjedala;
     private javax.swing.JTextField txtUvjet;
     // End of variables declaration//GEN-END:variables
 
@@ -709,8 +741,8 @@ public class AvioKompanije extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-    
-    private void preuzmiVrijednostiVezneTablice (Korisnik_AvioKompanija kak) {
+
+    private void preuzmiVrijednostiVezneTablice(Korisnik_AvioKompanija kak) {
         kak.setHrana(chbHrana.isSelected());
         kak.setPice(chbPice.isSelected());
         kak.setPrtljaga(chbPrtljaga.isSelected());
