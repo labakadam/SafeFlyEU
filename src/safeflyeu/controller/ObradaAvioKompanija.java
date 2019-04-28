@@ -18,29 +18,25 @@ import safeflyeu.pomocno.SafeFlyEUException;
  */
 public class ObradaAvioKompanija extends Obrada<AvioKompanija> implements ObradaSucelje<AvioKompanija> {
 
-    public ObradaAvioKompanija() {
-        super();
-    }
-
     @Override
     public List<AvioKompanija> getLista() {
         return HibernateUtil.getSession().createQuery("from AvioKompanija").list();
     }
 
     @Override
-    public AvioKompanija save(AvioKompanija ak) throws SafeFlyEUException {
+    public AvioKompanija save(AvioKompanija t) throws SafeFlyEUException {
 
-        kontrola(ak);
+        kontrola(t);
 
-        return dao.save(ak);
+        return dao.save(t);
     }
 
     @Override
-    public void obrisi(AvioKompanija ak) throws SafeFlyEUException {
-//        if (ak.getKorisnici().size() > 0) {
-//            throw new SafeFlyEUException("Ne možete brisati, avio kompanija ima korisnike");
-//        }
-        dao.delete(ak);
+    public void obrisi(AvioKompanija t) throws SafeFlyEUException {
+        if (t.getKorisnik().size() > 0) {
+            throw new SafeFlyEUException("Ne možete brisati, avio kompanija ima korisnike");
+        }
+        dao.delete(t);
     }
 
     @Override
@@ -69,9 +65,23 @@ public class ObradaAvioKompanija extends Obrada<AvioKompanija> implements Obrada
         if (ak.getNaziv().trim().isEmpty()) {
             throw new SafeFlyEUException("Naziv nije unesen");
         }
-//        if (!Pomocno.checkOIB(ak.getOib())) {
-//            throw new SafeFlyEUException("Oib je neispravan");
-//        }
+        try {
+            if (ak.getOsiguranje().getId() == 0) {
+                throw new SafeFlyEUException("Obavezan odabir osiguranja");
+            }
+        } catch (Exception e) {
+        }
+        try {
+            if (ak.getZaposlenik().getId() == 0) {
+                throw new SafeFlyEUException("Obavezan odabir zaposlenika");
+            }
+
+        } catch (Exception e) {
+        }
+
+        if (!Pomocno.checkOIB(ak.getOib())) {
+            throw new SafeFlyEUException("Oib je neispravan");
+        }
     }
 
 }

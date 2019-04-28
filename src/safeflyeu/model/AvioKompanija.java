@@ -26,36 +26,50 @@ import javax.persistence.Table;
 public class AvioKompanija extends Entitet implements Serializable {
 
     @ManyToOne
-    private List<Zaposlenik> zaposlenik = new ArrayList<>();
-//    private Zaposlenik zaposlenik;
-//
-  @ManyToOne
-    private List<Osiguranje> osiguranje = new ArrayList<>();
+    private Zaposlenik zaposlenik;
 
-//    @ManyToMany
-//    private List<Korisnik> korisnici = new ArrayList<>();
+    @ManyToOne
+    private Osiguranje osiguranje;
+
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "korisnik_avioKompanija",
+            joinColumns = {
+                @JoinColumn(name = "avioKompanija_id")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "korisnik_id")}
+    )
+    private List<Korisnik> korisnik = new ArrayList<>();
+
     private String naziv;
     private String let;
     private String avion;
     private String oib;
     private String iban;
 
-//    public List<Korisnik> getKorisnici() {
-//        return korisnici;
-//    }
-//
-//    public void setKorisnici(List<Korisnik> korisnici) {
-//        this.korisnici = korisnici;
-//    }
+    public List<Korisnik> getKorisnik() {
+        return korisnik;
+    }
 
-    public List<Osiguranje> getOsiguranje() {
+    public void setKorisnik(List<Korisnik> korisnik) {
+        this.korisnik = korisnik;
+    }
+
+    public Osiguranje getOsiguranje() {
         return osiguranje;
     }
 
-    public void setOsiguranje(List<Osiguranje> osiguranje) {
+    public void setOsiguranje(Osiguranje osiguranje) {
         this.osiguranje = osiguranje;
     }
-   
+
+    public Zaposlenik getZaposlenik() {
+        return zaposlenik;
+    }
+
+    public void setZaposlenik(Zaposlenik zaposlenik) {
+        this.zaposlenik = zaposlenik;
+    }
 
     public String getNaziv() {
         return naziv;
@@ -97,22 +111,17 @@ public class AvioKompanija extends Entitet implements Serializable {
         this.iban = iban;
     }
 
-    @Override
-    public String toString() {
-        return naziv;
-    }
-
     public Osiguranje getOsiguranje(Osiguranje osiguranje) {
         return osiguranje;
     }
 
-    public List<Zaposlenik> getZaposlenik() {
+    public Zaposlenik getZaposlenik(Zaposlenik zaposlenik) {
         return zaposlenik;
-
     }
 
-    public void setZaposlenik(List<Zaposlenik> zaposlenik) {
-        this.zaposlenik = zaposlenik;
+    @Override
+    public String toString() {
+        return naziv;
     }
 
 }

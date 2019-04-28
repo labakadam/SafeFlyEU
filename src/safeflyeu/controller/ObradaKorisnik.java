@@ -30,7 +30,7 @@ public class ObradaKorisnik extends Obrada<Korisnik> implements ObradaSucelje<Ko
 
     public List<Korisnik> getLista(String uvjet, boolean isSelected) {
 
-        Query query = HibernateUtil.getSession().createQuery("from Polaznik a "
+        Query query = HibernateUtil.getSession().createQuery("from Korisnik a "
                 + " where concat(a.ime,' ',a.prezime) like :uvjet")
                 .setString("uvjet", "%" + uvjet + "%");
         if (isSelected) {

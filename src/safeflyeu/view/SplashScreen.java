@@ -29,7 +29,7 @@ public class SplashScreen extends javax.swing.JFrame {
         @Override
         public void run() {
 
-            lblPoruka.setText("Inicijaliziram...");
+            lblPoruka.setText("Inicijalizacija...");
             for(int i=1;i<50;i++){
                 jProgressBar1.setValue(i);
                 try {
@@ -38,9 +38,9 @@ public class SplashScreen extends javax.swing.JFrame {
                 }
  
             }
-            lblPoruka.setText("Spajam se na bazu....");
+            lblPoruka.setText("Spajanje na bazu....");
             if(new ObradaOsiguranje().getLista().size()>-1){
-                lblPoruka.setText("Uspješno startam program");
+                lblPoruka.setText("Uspješan start programa!");
                 for(int i=75;i<=100;i++){
                 jProgressBar1.setValue(i);
                 try {

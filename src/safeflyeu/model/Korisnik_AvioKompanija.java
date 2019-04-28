@@ -25,10 +25,18 @@ public class Korisnik_AvioKompanija extends Entitet implements Serializable {
     @ManyToOne
     private AvioKompanija avioKompanija;
 
-    private String oznakaSjedala;
     private boolean hrana;
     private boolean pice;
     private boolean prtljaga;
+    private String oznakaSjedala;
+
+    public String getOznakaSjedala() {
+        return oznakaSjedala;
+    }
+
+    public void setOznakaSjedala(String oznakaSjedala) {
+        this.oznakaSjedala = oznakaSjedala;
+    }
 
     public Korisnik getKorisnik() {
         return korisnik;
@@ -44,14 +52,6 @@ public class Korisnik_AvioKompanija extends Entitet implements Serializable {
 
     public void setAvioKompanija(AvioKompanija avioKompanija) {
         this.avioKompanija = avioKompanija;
-    }
-
-    public String getOznakaSjedala() {
-        return oznakaSjedala;
-    }
-
-    public void setOznakaSjedala(String oznakaSjedala) {
-        this.oznakaSjedala = oznakaSjedala;
     }
 
     public boolean isHrana() {
