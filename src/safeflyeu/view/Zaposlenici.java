@@ -358,7 +358,7 @@ public class Zaposlenici extends javax.swing.JFrame {
         z.setOib(txtOib.getText());
         z.setBrojMobitela(txtBrojMobitela.getText());
         z.setBrojUgovora(txtBrojUgovora.getText());
-//        z.getAvioKompanija((AvioKompanija) cmbAvioKompanije.getSelectedItem());
+
         return z;
     }
 

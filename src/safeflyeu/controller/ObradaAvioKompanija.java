@@ -79,9 +79,9 @@ public class ObradaAvioKompanija extends Obrada<AvioKompanija> implements Obrada
         } catch (Exception e) {
         }
 
-        if (!Pomocno.checkOIB(ak.getOib())) {
+        /*if (!Pomocno.checkOIB(ak.getOib())) {
             throw new SafeFlyEUException("Oib je neispravan");
-        }
+        }*/
     }
 
 }

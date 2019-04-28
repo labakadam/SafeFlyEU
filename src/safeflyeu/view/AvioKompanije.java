@@ -132,7 +132,7 @@ public class AvioKompanije extends javax.swing.JFrame {
         chbPrtljaga = new javax.swing.JCheckBox();
         jLabel13 = new javax.swing.JLabel();
         txtOznakaSjedala = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnIspisi = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Avio-Kompanije");
@@ -265,7 +265,12 @@ public class AvioKompanije extends javax.swing.JFrame {
 
         jLabel13.setText("Oznaka sjedala:");
 
-        jButton1.setText("Ispiši");
+        btnIspisi.setText("Ispiši");
+        btnIspisi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIspisiActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -328,7 +333,7 @@ public class AvioKompanije extends javax.swing.JFrame {
                                         .addComponent(btnDodajNaAvioKompaniju, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jLabel12))
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(btnIspisi, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(36, 36, 36)
                                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -409,7 +414,7 @@ public class AvioKompanije extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(btnMakniSaAvioKompanije)
                                         .addGap(33, 33, 33)
-                                        .addComponent(jButton1))))
+                                        .addComponent(btnIspisi))))
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -522,6 +527,10 @@ public class AvioKompanije extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Prvo odaberite avio kompaniju");
             return;
         }
+        if (lstKorisnikaUAvioKompaniji.getSelectedValue() == null) {
+            JOptionPane.showMessageDialog(null, "Odaberite korisnika kojega želite vratiti");
+            return;
+        }
 
         List<Integer> zaBrisanje = new ArrayList<>();
         lstKorisnikaUAvioKompaniji.getSelectedValuesList().forEach((p) -> {
@@ -545,8 +554,12 @@ public class AvioKompanije extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Prvo odaberite avio kompaniju");
             return;
         }
+        if (lstKorisnikaUBazi.getSelectedValue() == null) {
+            JOptionPane.showMessageDialog(null, "Odaberite korisnika iz baze");
+            return;
+        }
         
-        Korisnik_AvioKompanija kak = new Korisnik_AvioKompanija();
+        //Korisnik_AvioKompanija kak = new Korisnik_AvioKompanija();
         
         lstKorisnikaUBazi.getSelectedValuesList().forEach((p) -> {
 
@@ -563,7 +576,7 @@ public class AvioKompanije extends javax.swing.JFrame {
             }
 
         });
-        preuzmiVrijednostiVezneTablice(kak);
+        //preuzmiVrijednostiVezneTablice(kak);
         ucitajKorisnike(avioKompanija);
 
     }//GEN-LAST:event_btnDodajNaAvioKompanijuActionPerformed
@@ -626,6 +639,10 @@ public class AvioKompanije extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_chbPrtljagaActionPerformed
 
+    private void btnIspisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIspisiActionPerformed
+        
+    }//GEN-LAST:event_btnIspisiActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -635,6 +652,7 @@ public class AvioKompanije extends javax.swing.JFrame {
     private javax.swing.JButton btnDodaj;
     private javax.swing.JButton btnDodajNaAvioKompaniju;
     private javax.swing.JButton btnExit;
+    private javax.swing.JButton btnIspisi;
     private javax.swing.JButton btnMakniSaAvioKompanije;
     private javax.swing.JButton btnPromjena;
     private javax.swing.JCheckBox chbHrana;
@@ -643,7 +661,6 @@ public class AvioKompanije extends javax.swing.JFrame {
     private javax.swing.JCheckBox chbPrtljaga;
     private javax.swing.JComboBox<Osiguranje> cmbOsiguranja;
     private javax.swing.JComboBox<Zaposlenik> cmbZaposlenici;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -706,8 +723,8 @@ public class AvioKompanije extends javax.swing.JFrame {
         ak.setIban(txtIban.getText());
         ak.setLet(txtLet.getText());
         ak.setOib(txtOib.getText());
-        ak.getOsiguranje((Osiguranje) cmbOsiguranja.getSelectedItem());
-        ak.getZaposlenik((Zaposlenik) cmbZaposlenici.getSelectedItem());
+        ak.setOsiguranje((Osiguranje) cmbOsiguranja.getSelectedItem());
+        ak.setZaposlenik((Zaposlenik) cmbZaposlenici.getSelectedItem());
 
         return ak;
 
